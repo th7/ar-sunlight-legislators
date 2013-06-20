@@ -18,12 +18,14 @@ describe CongressMember, "stuff" do
      :website,
      :webform,
      :twitter_id,
+     :tweets,
      :birthdate,
      :type].each { |mthd| test_member.should respond_to mthd }
   end
 
   it 'should retrieve tweets' do
     test_member = CongressMember.all.reject{|cm| cm.twitter_id.nil?}.sample
+    test_member.fetch_tweets
     test_member.print_tweets
   end
   # it "should be the right age" do
