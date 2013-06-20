@@ -2,13 +2,9 @@ require 'csv'
 
 class SunlightLegislatorsImporter
   def self.import(filename)
-    csv = CSV.new(File.open(filename), :headers => true)
+    csv = CSV.new(File.open(filename), :headers => true, header_converters => :symbol)
     csv.each do |row|
-      args = {}
-      row.each do |field, value|
-        args.store(field, value)
-      end
-      CongressMember.create(args)
+      CongressMember.create(row.to_hash)
     end
   end
 end
